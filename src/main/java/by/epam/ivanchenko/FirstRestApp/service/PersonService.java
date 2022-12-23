@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,6 +32,18 @@ public class PersonService {
     }
 
 
+    // принимаем JSON в контроллере (объект Person) и сохраняем в БД
+    @Transactional
+    public void save(Person person) {
+         enrichPerson(person);                                                                     // Добавляем в объект Person поля, которые не пришли от клиента и которые надо добавить на сервере
+         personRepository.save(person);
+    }
+
+    public void enrichPerson(Person person) {
+        person.setCreatedAt(LocalDateTime.now());
+        person.setUpdatedAt(LocalDateTime.now());
+        person.setCreatedWho("ADMIN");
+    }
 
 
 }

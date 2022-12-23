@@ -1,6 +1,12 @@
 package by.epam.ivanchenko.FirstRestApp.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "person")
@@ -11,13 +17,28 @@ public class Person {
     private int id;
 
     @Column(name = "name")
-    private String name;
+    @NotEmpty(message = "Name shouldn't be empty!")
+    @Size(min = 2, max = 30, message = "Name size should be between 2 and 30  characters")
+       private String name;
 
     @Column(name = "age")
+    @Min(value = 0, message = "Age should be more than 0")
     private int age;
 
     @Column(name = "email")
+    @Email
+    @NotEmpty(message = "Email shouldn't be empty!")
     private String email;
+
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
+
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
+
+    @Column(name = "created_who")
+    @NotEmpty
+    private String createdWho;
 
     public Person(String name, int age) {
         this.name = name;
@@ -57,5 +78,29 @@ public class Person {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public String getCreatedWho() {
+        return createdWho;
+    }
+
+    public void setCreatedWho(String createdWho) {
+        this.createdWho = createdWho;
     }
 }

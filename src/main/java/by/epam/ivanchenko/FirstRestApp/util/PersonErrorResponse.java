@@ -1,6 +1,6 @@
 package by.epam.ivanchenko.FirstRestApp.util;
 
-public class PersonErrorResponse {                                                              // Для описания ошибок(когда запрашиваемый юхер не существует)
+public class PersonErrorResponse {                                                              // Для описания ошибок(когда запрашиваемый юзер не существует)
     private String message;
     private long timestamp;
 
